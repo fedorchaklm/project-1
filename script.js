@@ -20,11 +20,10 @@ const personalMovieDB = {
   isPrivated: false,
 };
 
-/*const film = prompt("What first film have you recently seen?");
+const film = prompt("What first film have you recently seen?");
 const rating = Number(prompt("How do you rate this film?"));
 const film2 = prompt("What second film have you recently seen?");
 const rating2 = Number(prompt("How do you rate this film?"));
-*/
 
 // for (let i = 1; i < 3; i++) {
 //   film = prompt(`What ${i} film have you recently seen?`);
@@ -37,7 +36,6 @@ const rating2 = Number(prompt("How do you rate this film?"));
 //   personalMovieDB.movies[film] = rating;
 // }
 
-/*
 
 function rememberMyFilms() {
   let film, rating;
