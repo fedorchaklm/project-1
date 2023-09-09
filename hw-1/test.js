@@ -717,15 +717,20 @@ describe("textToNumber999", function () {
 });
 
 describe("getDistatnceBetweenTwoCoordinates", function () {
+  function almostEqual(exp, act, accuracy) {
+    return Math.abs(act - exp) <= accuracy;
+  }
+  
   const testData = [
-    { x1: 1, y1: 5, x2: 4, y2: 1, expected: 5 }
+    { x1: 1, y1: 5, x2: 4, y2: 1, expected: 5 },
+    { x1: 1, y1: 1, x2: 2, y2: 4, expected: 3.16228 },
   ];
 
   for (const { x1, y1, x2, y2, expected } of testData) {
     it(`should return ${expected} when point A {${x1};${y1}}, point B {${x2};${y2}}
     `, function () {
       const actual = getDistatnceBetweenTwoCoordinates(x1, y1, x2, y2);
-      assert.equal(expected, actual);
+      assert.isTrue(almostEqual(expected, actual, 0.00001));
     });
   }
 });
