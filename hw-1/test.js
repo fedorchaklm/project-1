@@ -720,7 +720,7 @@ describe("getDistatnceBetweenTwoCoordinates", function () {
   function almostEqual(exp, act, accuracy) {
     return Math.abs(act - exp) <= accuracy;
   }
-  
+
   const testData = [
     { x1: 1, y1: 5, x2: 4, y2: 1, expected: 5 },
     { x1: 1, y1: 1, x2: 2, y2: 4, expected: 3.16228 },
@@ -731,6 +731,46 @@ describe("getDistatnceBetweenTwoCoordinates", function () {
     `, function () {
       const actual = getDistatnceBetweenTwoCoordinates(x1, y1, x2, y2);
       assert.isTrue(almostEqual(expected, actual, 0.00001));
+    });
+  }
+});
+
+describe.only("checkTickTacToeVictory", () => {
+  const testData = [
+    {
+      elements: [],
+      expected: false,
+    },
+    {
+      elements: [
+        { id: "0-0", value: "nought" },
+        { id: "0-1", value: "nought" },
+        { id: "0-2", value: "nought" },
+      ],
+      expected: true,
+    },
+    {
+      elements: [
+        { id: "0-0", value: "cross" },
+        { id: "0-1", value: "cross" },
+        { id: "0-2", value: "cross" },
+      ],
+      expected: true,
+    },
+    {
+      elements: [
+        { id: "1-0", value: "cross" },
+        { id: "1-1", value: "cross" },
+        { id: "1-2", value: "cross" },
+      ],
+      expected: true,
+    },
+  ];
+
+  for (const { elements, expected } of testData) {
+    it(`should return ${expected} when ${JSON.stringify(elements)}`, () => {
+      const actual = checkTickTacToeVictory(elements);
+      assert.equal(expected, actual);
     });
   }
 });

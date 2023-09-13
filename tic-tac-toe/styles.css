@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0c0404;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  height: 300px;
+  width: 300px;
+  position: relative;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 33.3%;
+  width: 33.3%;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.5s ease-in;
+  box-sizing: border-box;
+}
+
+.item {
+  border-left: 4px solid white;
+  border-bottom: 4px solid white;
+}
+
+.item:nth-child(1),
+.item:nth-child(4),
+.item:nth-child(7) {
+  border-left: none;
+}
+
+.item:nth-child(7),
+.item:nth-child(8),
+.item:nth-child(9) {
+  border-bottom: none;
+}
+
+.item.nought::before {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 8px solid white;
+}
+
+.item.cross::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 60%;
+  box-sizing: border-box;
+  border: 5px solid white;
+  transform: rotate(45deg);
+}
+
+.item.cross::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 60%;
+  box-sizing: border-box;
+  border: 5px solid white;
+  transform: rotate(-45deg);
+}
+
+.item.winner::after,
+.item.winner::before {
+  border-color: red;
+}

@@ -1,0 +1,38 @@
+ body {
+  display: flex;
+  background-color: 	#8b4513;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+ }
+
+ .container {
+  width: 400px;
+  height: 400px;
+  background-color: #f4a460;
+  border-radius: 10px;
+  position: relative;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: yellow;
+  width: 25%;
+  height: 25%;
+  position: absolute;
+  border-radius: 10px;
+  border: 3px solid #f4a460;
+  box-sizing: border-box;
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+  transition: .5s ease-in;
+}
+
+.invisible {
+  display: none;
+}

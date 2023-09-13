@@ -559,3 +559,33 @@ function getDistatnceBetweenTwoCoordinates(x1, y1, x2, y2) {
   return res;
 }
 
+function checkTickTacToeVictory(elements) {
+  const checkWinner = (winner, value) => {
+    return winner.every((id) => {
+      const element = elements.find((el) => el.id === id);
+      return element && element.value === value;
+    });
+  };
+
+  const winners = [
+    ["0-0", "0-1", "0-2"],
+    ["1-0", "1-1", "1-2"],
+    ["2-0", "2-1", "2-2"],
+    ["0-0", "1-0", "2-0"],
+    ["0-1", "1-1", "2-1"],
+    ["0-2", "1-2", "2-2"],
+    ["0-0", "1-1", "2-2"],
+    ["0-2", "1-1", "2-0"],
+  ];
+
+  for (let i = 0; i < winners.length; i++) {
+    const isWinner =
+      checkWinner(winners[i], "nought") || checkWinner(winners[i], "cross");
+
+    if (isWinner) {
+      return true;
+    }
+  }
+
+  return false;
+}
