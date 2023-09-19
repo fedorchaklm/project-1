@@ -735,7 +735,7 @@ describe("getDistatnceBetweenTwoCoordinates", function () {
   }
 });
 
-describe.only("checkTickTacToeVictory", () => {
+describe("checkTickTacToeVictory", () => {
   const testData = [
     {
       elements: [],
@@ -773,4 +773,178 @@ describe.only("checkTickTacToeVictory", () => {
       assert.equal(expected, actual);
     });
   }
+});
+
+describe("getNamesString", function () {
+  const testData = [
+    {
+      arr: [
+        { name: "John", age: 18, gender: "male", country: "UA" },
+        { name: "William", age: 20, gender: "male", country: "UA" },
+        { name: "Jessie", age: 25, gender: "female", country: "US" },
+        { name: "Carl", age: 45, gender: "male", country: "PL" },
+      ],
+      expected: "John (man), William (man), Jessie (woman), Carl (man)",
+    },
+  ];
+
+  testData.forEach(({ arr, expected }) => {
+    it(`should return ${expected} when input is ${JSON.stringify(
+      arr
+    )}`, function () {
+      const actual = getNamesString(arr);
+      assert.equal(expected, actual);
+    });
+  });
+});
+
+describe("countGenders", function () {
+  [
+    {
+      arr: [
+        { name: "John", age: 18, gender: "male", country: "UA" },
+        { name: "William", age: 20, gender: "male", country: "UA" },
+        { name: "Jessie", age: 25, gender: "female", country: "US" },
+        { name: "Carl", age: 45, gender: "male", country: "PL" },
+      ],
+      expected: { male: 3, female: 1 },
+    },
+  ].forEach(({ arr, expected }) => {
+    it(`should return ${JSON.stringify(
+      expected
+    )} when input is ${JSON.stringify(arr)}`, function () {
+      const actual = countGenders(arr);
+      assert.deepEqual(expected, actual);
+    });
+  });
+});
+
+describe("countGgetNamesOfGendersenders", function () {
+  const testData = [
+    {
+      arr: [
+        { name: "John", age: 18, gender: "male", country: "UA" },
+        { name: "William", age: 20, gender: "male", country: "UA" },
+        { name: "Jessie", age: 25, gender: "female", country: "US" },
+        { name: "Carl", age: 45, gender: "male", country: "PL" },
+      ],
+      expected: {
+        man: ["John", "William", "Carl"],
+        women: ["Jessie"],
+      },
+    },
+  ];
+
+  testData.forEach(({ arr, expected }) => {
+    it(`should return ${JSON.stringify(
+      expected
+    )} when input is ${JSON.stringify(arr)}`, function () {
+      const actual = getNamesOfGenders(arr);
+      assert.deepEqual(expected, actual);
+    });
+  });
+});
+
+describe("getCountryGenders", function () {
+  const testData = [
+    {
+      arr: [
+        { name: "John", age: 18, gender: "male", country: "UA" },
+        { name: "William", age: 20, gender: "male", country: "UA" },
+        { name: "Jessie", age: 25, gender: "female", country: "US" },
+        { name: "Carl", age: 45, gender: "male", country: "PL" },
+      ],
+      expected: {
+        UA: [
+          { name: "John", age: 18 },
+          { name: "William", age: 20 },
+        ],
+        US: [{ name: "Jessie", age: 25 }],
+        PL: [{ name: "Carl", age: 45 }],
+      },
+    },
+    {
+      arr: [
+        { name: "John", age: 18, gender: "male", country: "UA" },
+        { name: "William", age: 20, gender: "male", country: "UA" },
+        { name: "Jessie", age: 25, gender: "female", country: "US" },
+        { name: "Carl", age: 45, gender: "male", country: "PL" },
+        { name: "Rachel", age: 35, gender: "female", country: "GB" },
+      ],
+      expected: {
+        UA: [
+          { name: "John", age: 18 },
+          { name: "William", age: 20 },
+        ],
+        US: [{ name: "Jessie", age: 25 }],
+        PL: [{ name: "Carl", age: 45 }],
+        GB: [{ name: "Rachel", age: 35 }],
+      },
+    },
+  ];
+
+  testData.forEach(({ arr, expected }) => {
+    it(`should return ${JSON.stringify(
+      expected
+    )} when input is ${JSON.stringify(arr)}`, function () {
+      const actual = getCountryGenders(arr);
+      assert.deepEqual(JSON.stringify(expected), JSON.stringify(actual));
+    });
+  });
+});
+
+describe("getUniqueElemets", function () {
+  [{ arr: [1, 4, 6, 2, 4, 2, 6, 6, 1], expected: [1, 4, 6, 2] }].forEach(
+    ({ arr, expected }) => {
+      it(`should return ${expected} when arr is ${arr}`, function () {
+        const actual = getUniqueElemets(arr);
+        assert.deepEqual(expected, actual);
+      });
+    }
+  );
+});
+
+describe.only("parseString", function() {
+  const testData = [
+    {str: "a:5,b:3,x:5,x:6", expected:{
+      a: 5,
+      b: 3,
+      x: 6,
+    }},
+    {
+      str: 'a:5,b:6,x:c:5,k:6',
+      expected: {
+        a: 5,
+        b: 6,
+        x: {
+          c: 5
+        },
+        k: 6
+      },
+    },
+    {
+      str: 'a:5,b:6,x:c:t:m:5,k:w:6',
+      expected: {
+        a: 5,
+        b: 6,
+        x: {
+          c: {
+            t: {
+              m: 5
+            }
+          }
+        },
+        k: {
+          w: 6
+        }
+      },
+    }
+  ];
+
+  testData.forEach(({str, expected}) => {
+    it(`should return ${JSON.stringify(expected)} when string is "${str}"`, function(){
+      const actual = parseString(str);
+      assert.deepEqual(expected, actual);
+    });
+  })
 });

@@ -1,0 +1,111 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-border-color: rgb(188, 172, 158);
+  --main-bg-color: rgb(249, 246, 242);
+  --border-width: 6px;
+  --bg-color-2: rgb(238, 228, 218);
+  --bg-color-4: rgb(237, 224, 200);
+  --bg-color-8: rgb(242, 177, 121);
+  --bg-color-16: rgb(245, 149, 99);
+  --bg-color-32: rgb(246, 124, 95);
+  --bg-color-64: rgb(246, 94, 59);
+  --bg-color-128: rgb(237, 207, 114);
+  --bg-color-256: rgb(237, 204, 97);
+  --bg-color-512: rgb(237, 200, 80);
+  --bg-color-1024: rgb(237, 197, 63);
+  --bg-color-2048: rgb(237, 194, 46);
+  --color-light: rgb(249, 246, 242);
+  --color-dark: rgb(119, 110, 101);
+}
+
+.items-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border: var(--border-width) solid var(--main-border-color);
+}
+
+.item {
+  font-family: sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--main-bg-color);
+  position: absolute;
+  width: 25%;
+  height: 25%;
+  box-sizing: border-box;
+  border: var(--border-width) solid var(--main-border-color);
+}
+
+.item[data-value="2"],
+.item[data-value="4"] {
+  color: var(--color-dark);
+}
+
+.item[data-value="8"],
+.item[data-value="16"],
+.item[data-value="32"],
+.item[data-value="64"],
+.item[data-value="128"],
+.item[data-value="256"],
+.item[data-value="512"],
+.item[data-value="1024"],
+.item[data-value="2048"] {
+  color: var(--color-light);
+}
+
+.item[data-value="2"] {
+  background-color: var(--bg-color-2);
+}
+
+.item[data-value="4"] {
+  background-color: var(--bg-color-4);
+}
+
+.item[data-value="8"] {
+  background-color: var(--bg-color-8);
+}
+
+.item[data-value="16"] {
+  background-color: var(--bg-color-16);
+}
+
+.item[data-value="32"] {
+  background-color: var(--bg-color-32);
+}
+
+.item[data-value="64"] {
+  background-color: var(--bg-color-64);
+}
+
+.item[data-value="128"] {
+  background-color: var(--bg-color-128);
+}
+
+.item[data-value="256"] {
+  background-color: var(--bg-color-256);
+}
+
+.item[data-value="512"] {
+  background-color: var(--bg-color-512);
+}
+
+.item[data-value="1024"] {
+  background-color: var(--bg-color-1024);
+}
+
+.item[data-value="2048"] {
+  background-color: var(--bg-color-2048);
+}

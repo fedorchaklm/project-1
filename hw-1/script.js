@@ -589,3 +589,189 @@ function checkTickTacToeVictory(elements) {
 
   return false;
 }
+
+// Home-work from Sasha (reduce(); map();)
+
+// const input = [
+//   { name: "John", age: 18, gender: "male", country: "UA" },
+//   { name: "William", age: 20, gender: "male", country: "UA" },
+//   { name: "Jessie", age: 25, gender: "female", country: "US" },
+//   { name: "Carl", age: 45, gender: "male", country: "PL" },
+// ];
+
+// const output_1 = 'John (man), William (man), Jessie (woman), Carl (man)';
+
+function getNamesString(arr) {
+  return arr
+    .map((item) => {
+      return `${item.name} ${item.gender === "male" ? "(man)" : "(woman)"}`;
+    })
+    .join(", ");
+}
+
+// const output_2 = { male: 3, female: 1 };
+
+function countGenders(arr) {
+  return arr.reduce((acc, { gender }) => {
+    if (gender in acc) {
+      acc[gender]++;
+    } else {
+      acc[gender] = 1;
+    }
+    return acc;
+  }, {});
+}
+
+// const output_3 = {
+// 	man: ['John', 'William', 'Carl'],
+// 	women: ['Jessie']
+// };
+
+function getNamesOfGenders(arr) {
+  return {
+    man: arr.filter(({ gender }) => gender === "male").map((item) => item.name),
+    women: arr
+      .filter(({ gender }) => gender === "female")
+      .map((item) => item.name),
+  };
+}
+
+// const output_4 = {
+// 	UA: [
+// 		{ name: 'John', age: 18 },
+// 		{ name: 'William', age: 20 }
+// 	],
+// 	US: [{ name: 'Jessie', age: 25 }],
+// 	PL: [{ name: 'Carl', age: 45 }]
+// };
+
+function getCountryGenders(arr) {
+  const countries = [...new Set(arr.map(({ country }) => country))];
+  return countries.reduce(
+    (acc, country) => ({
+      ...acc,
+      [country]: arr
+        .filter((item) => item.country === country)
+        .map(({ name, age }) => ({ name, age })),
+    }),
+    {}
+  );
+}
+
+// input = [1, 4, 6, 2, 4, 2, 6, 6, 1];
+// output = [1, 4, 6, 2];
+
+function getUniqueElemets(arr) {
+  return [...new Set(arr)];
+}
+
+const input = "a:5,b:3,x:c:5,x:k:6";
+const output = {
+  a: 5,
+  b: 3,
+  x: {
+    c: 5,
+    k: 6,
+  },
+};
+
+const t = "a:5,b:6,x:c:5,k:6";
+
+function parseSubString(str) {
+  const index = str.indexOf(":");
+  if (index !== -1) {
+    const key = str.slice(0, index);
+    const value = str.slice(index + 1);
+    return {
+      [key]: parseSubString(value),
+    };
+  }
+  return Number(str);
+}
+
+function parseString(str) {
+  const arr = str.split(",");
+  return arr.reduce((acc, item) => {
+    return {
+      ...acc,
+      ...parseSubString(item),
+    };
+  }, {});
+}
+
+class Client {
+  constructor(firstName, lastName, balance, id) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.balance = balance;
+    this.id = id;
+  }
+}
+
+class Bank {
+  constructor(bankName) {
+    this.bankName = bankName;
+    this.clients = [];
+    this.balance = 0;
+    this.comission = 0.01;
+  }
+
+  addClient(client) {
+    this.clients.push(client);
+  }
+  counter = 0;
+  getInfo() {
+    const info = `${this.counter++} ${this.bankName}, has ${this.clients.length} clients, balance: ${this.balance}`;
+    console.log(info);
+    console.log(this.clients);
+  }
+
+  sendMoney(fromId, toId, amount) {
+    const from = this.clients.find((item) => item.id === fromId);
+    const to = this.clients.find((item) => item.id === toId);
+    if (!from) {
+      throw new Error(`${fromId} not found`);
+    }
+    if (!to) {
+      throw new Error(`${toId} not found`);
+    }
+
+    const value = amount * (this.comission + 1);
+
+     if(from.balance < value) {
+      throw new Error(`${fromId} out of money`);
+    }
+    
+    from.balance -= value;
+    to.balance += amount;
+    this.balance += amount * this.comission;
+    console.log("send money success ");
+  }
+
+  trySendMoney(fromId, toId, amount) {
+    try {
+      this.sendMoney(fromId, toId, amount);
+    } catch (e) {
+      console.log('> Handled an Error', e.message);
+    }
+  }
+}
+
+function main() {
+  const pb = new Bank("PrivatBank");
+  const client1 = new Client("Sasha", "Stukalo", 100, 12345);
+  const client2 = new Client("Luba", "Stukalo", 200, 67890);
+  pb.addClient(client1);
+  pb.addClient(client2);
+  pb.getInfo();
+  pb.trySendMoney(client1.id, client2.id, 50);
+  pb.getInfo();
+  pb.trySendMoney(client2.id, client1.id, 100);
+  pb.getInfo();
+  pb.trySendMoney(client2.id, client1.id, 100);
+  pb.getInfo();
+  pb.trySendMoney(client2.id, client1.id, 100);
+  pb.getInfo();
+  pb.trySendMoney(client2.id, client1.id, 100);
+  pb.getInfo();
+}

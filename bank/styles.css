@@ -1,0 +1,109 @@
+body {
+  height: 100vh;
+  background-color: darkslategrey;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+form {
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  width: 300px;
+  padding: 20px;
+  gap: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container > button {
+  min-width: 100px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field > label {
+  color: white;
+  padding: 5px 0;
+}
+
+.form-field > input {
+  border: 2px solid rgb(255, 170, 0);
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.form-field > input:focus {
+  background: lightblue;
+}
+
+.form-field > .form-field-error {
+  color: red;
+  padding-top: 5px;
+}
+
+#info {
+  background: white;
+}
+
+#clients-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(200, 200, 200);
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}
+
+caption {
+  font-size: 20px;
+  color: white;
+  margin: 10px;
+}
+
+td,
+th {
+  border: 1px solid rgb(190, 190, 190);
+  padding: 10px 20px;
+  color: antiquewhite;
+  background: black;
+}
+
+#modal-container {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 200px;
+
+  z-index: 100;
+}
+
+#modal-content {
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); 
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clients-list-container {
+  display: flex;
+  justify-content: center;
+}
