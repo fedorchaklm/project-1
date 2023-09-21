@@ -1,0 +1,54 @@
+body {
+  background: rgb(77, 77, 75);
+}
+
+.entry {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+  border-radius: 50%;
+  background: burlywood;
+  color: black;
+}
+
+#add-remove-element {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  background: rgb(242, 242, 213);
+  background: 5px solid black;
+}
+
+#list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
+}
+
+/* #list-container:second-child {
+  flex-direction:column;
+} */
+
+button {
+  color: aliceblue;
+  background: black;
+  margin: 10px;
+}
+
+#stick {
+  width: 50px;
+  height: 2px;
+  background: burlywood;
+}
+
+#items-container {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}

@@ -10,7 +10,6 @@ class LinkedList {
 
   add(value) {
     const entry = new Entry(value);
-
     if (!this.root) {
       this.root = entry;
     } else {
@@ -52,7 +51,7 @@ class LinkedList {
           const tmp = current.value;
           current.value = inner.value;
           inner.value = tmp;
-        }  
+        }
         inner = inner.next;
       }
       current = current.next;
