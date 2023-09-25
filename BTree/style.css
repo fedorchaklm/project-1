@@ -1,0 +1,63 @@
+body {
+  background: black;
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1;
+}
+
+.children {
+  display: flex;
+  justify-content: space-around;
+}
+
+.value {
+  display: flex;
+  justify-content: center;
+}
+
+.value>span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid green;
+  color: green;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#add-remove-element {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  background: rgb(242, 242, 213);
+  background: 5px solid black;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: start;
+}
+
+button {
+  color: aliceblue;
+  background: black;
+  margin: 10px;
+}
+
+#items-container {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
