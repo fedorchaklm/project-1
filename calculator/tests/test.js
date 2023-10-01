@@ -1,14 +1,15 @@
 describe("Calculator", function () {
   const container = document.getElementById("calculator-container");
+  let presenter;
 
   beforeEach(() => {
-    new Presenter(container);
+    presenter = new Presenter(container);
     const button = document.querySelector("button[data-value='on']");
     button.click();
   });
 
   afterEach(() => {
-    container.innerHTML = "";
+    presenter.destroy();
   });
 
   describe("on", function () {

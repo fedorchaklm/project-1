@@ -98,7 +98,8 @@ const operators = {
 
 class Presenter {
   constructor(container) {
-    container.innerHTML = calculatorHtml;
+    this.container = container;
+    this.container.innerHTML = calculatorHtml;
     this.calculator = new Calculator();
     this.isRunning = false;
     this.output = document.getElementById("output");
@@ -106,175 +107,166 @@ class Presenter {
     this.prevNumber = null;
     this.result = null;
     this.operator = null;
-    this.turnOn();
-    this.turnOff();
-    this.addEventNumbers();
-    this.addEventOperators();
-    this.addEventEqual();
+    this.listeners = this.addEventListeners();
   }
 
-  turnOn() {
+  destroy() {
+    Object.values(this.listeners).forEach(([element, type, listener]) => {
+      element.removeEventListener(type, listener);
+    });
+    this.container.innerHTML = "";
+  }
+
+  addEventListeners() {
+    const listeners = {};
+
     const turnOnButton = document.querySelector('[data-value="on"]');
-    turnOnButton.addEventListener("click", (e) => {
-      console.log("Enter On");
-      if (!this.isRunning) {
-        this.output.textContent = 0;
-        this.isRunning = true;
-        console.log(
-          "prevNumber",
-          this.prevNumber,
-          "current",
-          this.current,
-          "result",
-          this.result
-        );
-      }
-      return;
-    });
-  }
+    turnOnButton.addEventListener("click", this.handleTurnOnButtonClick);
+    listeners.turnOn = [turnOnButton, "click", this.handleTurnOnButtonClick];
 
-  turnOff() {
     const turnOffButton = document.querySelector('[data-value="off"]');
-    turnOffButton.addEventListener("click", (e) => {
-      console.log("Enter Off");
-      if (this.isRunning) {
-        this.output.textContent = "";
-        this.isRunning = false;
-        this.prevNumber = null;
-        this.current = null;
-        this.result = null;
-        console.log(
-          "prevNumber",
-          this.prevNumber,
-          "current",
-          this.current,
-          "result",
-          this.result
-        );
-      }
-    });
-  }
+    turnOffButton.addEventListener("click", this.handleTurnOffButtonClick);
+    listeners.turnOff = [turnOffButton, "click", this.handleTurnOffButtonClick];
 
-  addEventNumbers() {
     for (let i = 0; i < 10; i++) {
-      const buttonNumber = document.querySelector(`[data-value="${i}"]`);
-      buttonNumber.addEventListener("click", (e) => {
-        if (!this.isRunning) {
-          return;
-        }
-
-        if (this.prevNumber && !this.current) {
-          this.output.textContent = "";
-        }
-        this.current = i;
-        console.log("prevNumber", this.prevNumber, "current", this.current);
-        if (this.output.textContent === "0") {
-          this.output.textContent = this.current;
-        } else {
-          this.output.textContent += this.current;
-          this.current = Number(this.output.textContent);
-          console.log("prevNumber", this.prevNumber, "current", this.current);
-        }
-      });
+      const numberButton = document.querySelector(`[data-value="${i}"]`);
+      numberButton.addEventListener("click", this.handleNumberButtonClick);
+      listeners[`numberButton_${i}`] = [
+        numberButton,
+        "click",
+        this.handleNumberButtonClick,
+      ];
     }
-  }
 
-  addEventOperators() {
     const operatorsValues = Object.values(operators);
     for (let i = 0; i < operatorsValues.length; i++) {
-      const buttonOperator = document.querySelector(
+      const operatorButton = document.querySelector(
         `[data-value="${operatorsValues[i]}"]`
       );
-      buttonOperator.addEventListener("click", (e) => {
-        if (!this.isRunning) {
-          return;
-        }
-
-        const { value } = e.target.dataset;
-        console.log(e.target.dataset.value);
-
-        if (value === ".") {
-          if (!this.output.textContent.includes(".")) {
-            this.output.textContent += ".";
-            this.current = Number(this.output.textContent);
-            console.log("prevNumber", this.prevNumber, "current", this.current);
-          }
-          return;
-        }
-
-        if (this.operator) {
-          if (value === "%") {
-            console.log("HERE");
-            const rate = Number(this.prevNumber * (this.current / 100));
-            this.output.textContent = rate;
-            if (this.operator === operators.PLUS) {
-              this.result = this.prevNumber + rate;
-            } else if (this.operator === operators.MINUS) {
-              this.result = this.prevNumber - rate;
-            } else if (this.operator === operators.MULTIPLY) {
-              this.result = this.prevNumber * rate;
-            } else if (this.operator === operators.DIVIDE) {
-              this.result = this.prevNumber / rate;
-            }
-            this.output.textContent = this.result;
-            this.prevNumber = this.result;
-            this.current = null;
-            this.operator = null;
-            return;
-          }
-          this.chooseOperator(value);
-          this.operator = value;
-          console.log("operator", this.operator);
-        } else {
-          this.operator = value;
-          console.log("operator", this.operator);
-        }
-
-        if (this.operator === operators.CE) {
-          this.current = 0;
-          this.output.textContent = 0;
-          console.log("prevNumber", this.prevNumber, "current", this.current);
-          return;
-        }
-
-        if (this.prevNumber && this.current) {
-          console.log("prevNumber", this.prevNumber, "current", this.current);
-          this.chooseOperator();
-        } else if (this.prevNumber && !this.current) {
-          this.current = null;
-          this.output.textContent = this.prevNumber;
-          console.log("prevNumber", this.prevNumber, "current", this.current);
-        } else {
-          console.log("prevNumber", this.prevNumber, "current", this.current);
-          this.prevNumber = this.current;
-          this.current = null;
-          console.log("prevNumber", this.prevNumber, "current", this.current);
-          this.output.textContent = this.prevNumber;
-        }
-      });
+      operatorButton.addEventListener("click", this.handleOperatorButtonClick);
+      listeners[`operatorButton_${operatorsValues[i]}`] = [
+        operatorButton,
+        "click",
+        this.handleOperatorButtonClick,
+      ];
     }
+
+    const equalButton = document.querySelector('[data-value="="]');
+    equalButton.addEventListener("click", this.handleEqualButtonClick);
+    listeners.equalButton = [equalButton, "click", this.handleEqualButtonClick];
+
+    return listeners;
   }
 
-  addEventEqual() {
-    const buttonEqual = document.querySelector('[data-value="="]');
-    buttonEqual.addEventListener("click", (e) => {
-      if (!this.isRunning) {
-        return;
-      }
+  handleTurnOnButtonClick = () => {
+    if (!this.isRunning) {
+      this.output.textContent = 0;
+      this.isRunning = true;
+    }
+  };
 
-      if (!this.prevNumber) {
-        this.output.textContent = this.current;
-        console.log("enter without operator");
-      } else {
-        console.log("operatorChosen", this.operator);
-        this.chooseOperator();
-        console.log("Enter =", this.result);
+  handleTurnOffButtonClick = () => {
+    if (this.isRunning) {
+      this.output.textContent = "";
+      this.isRunning = false;
+      this.prevNumber = null;
+      this.current = null;
+      this.result = null;
+    }
+  };
+
+  handleNumberButtonClick = (e) => {
+    if (!this.isRunning) {
+      return;
+    }
+
+    if (this.prevNumber && !this.current) {
+      this.output.textContent = "";
+    }
+    this.current = Number(e.target.dataset.value);
+    if (this.output.textContent === "0") {
+      this.output.textContent = this.current;
+    } else {
+      this.output.textContent += this.current;
+      this.current = Number(this.output.textContent);
+    }
+  };
+
+  handleOperatorButtonClick = (e) => {
+    if (!this.isRunning) {
+      return;
+    }
+
+    const { value } = e.target.dataset;
+
+    if (value === ".") {
+      if (!this.output.textContent.includes(".")) {
+        this.output.textContent += ".";
+        this.current = Number(this.output.textContent);
+      }
+      return;
+    }
+
+    if (this.operator) {
+      if (value === "%") {
+        const rate = Number(this.prevNumber * (this.current / 100));
+        this.output.textContent = rate;
+
+        if (this.operator === operators.PLUS) {
+          this.result = this.prevNumber + rate;
+        } else if (this.operator === operators.MINUS) {
+          this.result = this.prevNumber - rate;
+        } else if (this.operator === operators.MULTIPLY) {
+          this.result = this.prevNumber * rate;
+        } else if (this.operator === operators.DIVIDE) {
+          this.result = this.prevNumber / rate;
+        }
+
         this.output.textContent = this.result;
         this.prevNumber = this.result;
         this.current = null;
+        this.operator = null;
+
+        return;
       }
-    });
-  }
+
+      this.chooseOperator(value);
+    }
+
+    this.operator = value;
+
+    if (this.operator === operators.CE) {
+      this.current = 0;
+      this.output.textContent = 0;
+      return;
+    }
+
+    if (this.prevNumber && this.current) {
+      this.chooseOperator();
+    } else if (this.prevNumber && !this.current) {
+      this.current = null;
+      this.output.textContent = this.prevNumber;
+    } else {
+      this.prevNumber = this.current;
+      this.current = null;
+      this.output.textContent = this.prevNumber;
+    }
+  };
+
+  handleEqualButtonClick = (e) => {
+    if (!this.isRunning) {
+      return;
+    }
+
+    if (!this.prevNumber) {
+      this.output.textContent = this.current;
+    } else {
+      this.chooseOperator();
+      this.output.textContent = this.result;
+      this.prevNumber = this.result;
+      this.current = null;
+    }
+  };
 
   chooseOperator() {
     if (this.operator === operators.PLUS) {
@@ -295,11 +287,8 @@ class Presenter {
         Number(this.current)
       );
     }
-
     if (this.operator === operators.DIVIDE) {
-      console.log("operator", this.operator);
       if (this.current !== 0) {
-        console.log("operator", this.operator);
         this.result = this.calculator.getDivision(
           Number(this.prevNumber),
           Number(this.current)
@@ -312,10 +301,5 @@ class Presenter {
     this.prevNumber = this.result;
     this.current = null;
     this.operator = null;
-    console.log({
-      result: this.result,
-      prevNumber: this.prevNumber,
-      current: this.current,
-    });
   }
 }
