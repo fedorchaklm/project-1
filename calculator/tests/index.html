@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Test - Calculator</title>
+
+  <!-- добавим стили mocha для отображения результатов -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+  <!-- добавляем сам фреймворк mocha -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+  <script>
+    // включаем режим тестирования в стиле BDD
+    mocha.setup('bdd');
+  </script>
+  <!-- добавим chai -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+  <script>
+    // chai предоставляет большое количество функций. Объявим assert глобально
+    let assert = chai.assert;
+  </script>
+</head>
+
+<body>
+  <div id="calculator-container"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"
+      integrity="sha512-jgMqxLG97m1BO3cRIW5ESD++rF8uJ6Fbufba2xKb102eTX8UPCWhrKua+uKSNidBFFLKXKAByX2HmQUMQZBSUg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../calculator.js"></script>
+  <script src="../presenter.js"></script>
+
+  <!-- скрипт со спецификацией (describe, it...) -->
+  <script src="./test.js"></script>
+
+  <!-- элемент с id="mocha" будет содержать результаты тестов -->
+  <div id="mocha"></div>
+
+  <!-- запускаем тесты! -->
+  <script>
+    mocha.run();
+  </script>
+</body>
+
+</html>
+  

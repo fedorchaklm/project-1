@@ -8,7 +8,7 @@ body {
   src: url("./fonts/digital-7.ttf");
 }
 
-.calculator-container {
+#calculator-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +50,6 @@ body {
   font-family: "Digital-7";
 }
 
-
 .buttons {
   display: flex;
   flex-direction: column;
@@ -67,7 +66,7 @@ body {
   background-color: #575757;
 }
 
-.button {
+button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,26 +77,19 @@ body {
   border: 1px solid black;
   border-radius: 10px;
   text-transform: uppercase;
+  font-size: 35px;
 }
 
 #equal {
   background-color: #e29506;
 }
 
-.button-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 35px;
-  cursor: pointer;
-}
-
 .button-text-sm {
   font-size: 22px;
   font-weight: 600;
-  cursor: pointer;
 }
 
-span:hover {
+button:hover {
   background-color: aqua;
+  cursor: pointer;
 }

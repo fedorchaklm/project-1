@@ -1,3 +1,4 @@
 (function run() {
-  const calculator = new Presenter();
+  const container = document.getElementById('calculator-container');
+  const calculator = new Presenter(container);
 })();
