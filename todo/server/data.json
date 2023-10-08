@@ -1,15 +1,45 @@
 [
  {
-  "title": "3 - Play with Bodya",
-  "description": "spend time with son",
+  "title": "8 - Seems better to change the font-family",
+  "description": "Using the default Times New Roman seems not a very good idea.",
   "status": "in_progress",
-  "id": "eb7d09a6-e999-4464-984c-a0128e95cda7"
+  "id": "09799ce6-51b5-415e-bbfd-389b06db41ea"
  },
  {
   "title": "2 - Learn JS - UPDATED",
   "description": "Create Todo App, using http node server. Data should be stored in json file. Need to implement client by design",
   "status": "in_progress",
   "id": "88434074-d2f6-4a88-ad12-c6079a92e314"
+ },
+ {
+  "title": "5 - Watch a good movie",
+  "description": "You need to have a good rest. I shouldn't play PS too much.",
+  "status": "in_progress",
+  "id": "0214a42f-17c8-47d6-add2-1dbce3d7e457"
+ },
+ {
+  "title": "7 - Increase a font-size in this form",
+  "description": "It is really dificult to read the text",
+  "status": "in_progress",
+  "id": "7090841c-c963-4250-92b8-080fc071ef51"
+ },
+ {
+  "title": "4 - Create a vacation request",
+  "description": "Need to plan a vacation period.",
+  "status": "in_progress",
+  "id": "2e0484b1-4845-4175-88c8-b05a58e260c8"
+ },
+ {
+  "title": "6 - Crate a scroll for task block",
+  "description": "When there are too many cards it should be handled by scroll",
+  "status": "in_progress",
+  "id": "f54340c2-835c-40f4-9441-7e420329c7bf"
+ },
+ {
+  "title": "3 - Play with Bodya",
+  "description": "spend time with son",
+  "status": "todo",
+  "id": "eb7d09a6-e999-4464-984c-a0128e95cda7"
  },
  {
   "title": "1 - Learn JS",

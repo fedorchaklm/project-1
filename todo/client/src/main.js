@@ -1,21 +1,37 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   render();
+  addAddEvent();
   addDragEvent();
-  addCardEvent();
 });
+
+const dropdownHtml = (id) => `<div class="dropdown-container">
+  <div class="dropdown">
+    <button class="dropbtn">&#168;</button>
+    <div class="dropdown-content">
+      <button class="btn-edit" data-id="${id}">Edit</button>
+      <button class="btn-delete" data-id="${id}">Delete</button>
+    </div>
+  </div>
+</div>`;
 
 function renderCards(data, status) {
   const parent = document.getElementById(status);
   const filtered = data.filter((item) => item.status === status);
   let html = "";
   for (let i = 0; i < filtered.length; i++) {
-    html += `<div class="card" draggable="true" data-id="${filtered[i].id}"> 
+    html += `<div class="card" draggable="true" data-id="${filtered[i].id}">
       <span class="title">${filtered[i].title}</span>
       <p class="description">${filtered[i].description}</p>
+      ${dropdownHtml(filtered[i].id)}
     </div>`;
   }
   parent.innerHTML = html;
+  parent
+    .querySelectorAll(".btn-delete")
+    .forEach((btn) => btn.addEventListener("click", (evt) => handleDeleteTask(evt)));
+  parent
+    .querySelectorAll(".btn-edit")
+    .forEach((btn) => btn.addEventListener("click", (evt) => handleEditTask(evt)));
 }
 
 function render() {
@@ -47,7 +63,7 @@ function addDragEvent() {
       const data = {
         id: card.dataset.id,
         status: card.parentNode.id,
-        _next: nextCard?.dataset.id
+        _next: nextCard?.dataset.id,
       };
       DataService.updateData(data);
     });
@@ -84,12 +100,25 @@ function addDragEvent() {
   });
 }
 
-function addCardEvent() {
-  const button = document.getElementById("add-task");
-  button.addEventListener("click", () => handlerAddTask());
+function addAddEvent() {
+  const buttonAdd = document.getElementById("add-task");
+  buttonAdd.addEventListener("click", () => handleAddTask());
 }
 
-function handlerAddTask() {
+function handleDeleteTask(evt) {
+  const id = evt.currentTarget.dataset.id;
+  DataService.deleteData(id).then(() => {
+    render();
+  });
+  console.log("here");
+}
+
+function handleEditTask(evt) {
+  const id = evt.currentTarget.dataset.id;
+
+  console.log("here");
+}
+function handleAddTask() {
   const modal = renderAddTaskFormModal();
   const form = document.getElementById("add-task-form");
   form.onsubmit = (evt) => {
@@ -100,18 +129,13 @@ function handlerAddTask() {
         .value,
       status: statuses.TODO,
     };
-    DataService
-      .postData(task)
+    DataService.postData(task)
       .then((data) => {
         console.log(data);
         form.reset();
-        const messageWindow = document.createElement("div");
-        messageWindow.classList.add("message-window");
-        form.appendChild(messageWindow);
-        messageWindow.textContent = "added task";
       })
       .finally(() => {
-        modal.close;
+        modal.close();
         render();
       });
   };

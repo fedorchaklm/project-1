@@ -18,4 +18,10 @@ class DataService {
       body: JSON.stringify(data),
     });
   }
+
+  static deleteData(id) {
+    return fetch(`http://localhost:3005/api?id=${id}`, {
+      method: "DELETE",
+    });
+  }
 }
