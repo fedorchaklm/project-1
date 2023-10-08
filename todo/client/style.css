@@ -1,0 +1,144 @@
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 1px;
+  position: relative;
+}
+
+.block {
+  flex: 1;
+  height: 100%;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.block > h2 {
+  color: white;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 10px;
+  user-select: none;
+  border-radius: 5px;
+}
+
+.card > .title {
+  font-weight: bold;
+}
+
+#add-task {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  cursor: pointer;
+}
+
+#add-task:hover {
+  background-color: gray;
+  color: white;
+}
+
+#modal-container {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 200px;
+
+  z-index: 100;
+}
+
+#modal-content {
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.modal-header > button {
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.form-container {
+  background-color: white;
+  width: 300px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-buttons > button {
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+input {
+  font-size: 12px;
+  padding: 10px;
+}
+
+textarea {
+  resize: none;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.message-window {
+  width: 100px;
+  background: black;
+  color: white;
+}
+
+.selected {
+  opacity: 0.6;
+}
