@@ -1,10 +1,3 @@
-const statuses = {
-  TODO: "todo",
-  IN_PROGRESS: "in_progress",
-  DONE: "done",
-};
-
-const servise = new DataServise();
 
 document.addEventListener("DOMContentLoaded", () => {
   render();
@@ -12,11 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   addCardEvent();
 });
 
-function renderCards(data, status, parent) {
+function renderCards(data, status) {
+  const parent = document.getElementById(status);
   const filtered = data.filter((item) => item.status === status);
   let html = "";
   for (let i = 0; i < filtered.length; i++) {
-    html += `<div class="card" draggable="true"> 
+    html += `<div class="card" draggable="true" data-id="${filtered[i].id}"> 
       <span class="title">${filtered[i].title}</span>
       <p class="description">${filtered[i].description}</p>
     </div>`;
@@ -25,11 +19,10 @@ function renderCards(data, status, parent) {
 }
 
 function render() {
-  servise.getData().then((data) => {
-    const getParent = (id) => document.querySelector(`#${id} > .cards`);
-    renderCards(data, statuses.TODO, getParent("todo"));
-    renderCards(data, statuses.IN_PROGRESS, getParent("in-progress"));
-    renderCards(data, statuses.DONE, getParent("done"));
+  DataService.getData().then((data) => {
+    renderCards(data, statuses.TODO);
+    renderCards(data, statuses.IN_PROGRESS);
+    renderCards(data, statuses.DONE);
   });
 }
 
@@ -43,6 +36,20 @@ function addDragEvent() {
     cards.addEventListener("dragend", (evt) => {
       // target is card in the list
       evt.target.classList.remove("selected");
+
+      const card = evt.target;
+      let nextCard = evt.target.nextElementSibling;
+      let prevStatus = getPrevStatus(card.parentNode.id);
+      while (!nextCard && prevStatus) {
+        nextCard = document.getElementById(prevStatus).firstChild;
+        prevStatus = getPrevStatus(prevStatus);
+      }
+      const data = {
+        id: card.dataset.id,
+        status: card.parentNode.id,
+        _next: nextCard?.dataset.id
+      };
+      DataService.updateData(data);
     });
 
     cards.addEventListener("dragover", (evt) => {
@@ -71,6 +78,7 @@ function addDragEvent() {
           ? currentCard.nextElementSibling
           : currentCard;
 
+      // console.log(currentCard.nextElementSibling.dataset.id);
       current.insertBefore(activeCard, nextCard);
     });
   });
@@ -92,7 +100,7 @@ function handlerAddTask() {
         .value,
       status: statuses.TODO,
     };
-    servise
+    DataService
       .postData(task)
       .then((data) => {
         console.log(data);

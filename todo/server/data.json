@@ -1,38 +1,20 @@
 [
  {
-  "title": "Learn JS",
-  "description": "Create Todo App, using http node server. Data should be stored in json file. Need to implement client by design",
+  "title": "3 - Play with Bodya",
+  "description": "spend time with son",
   "status": "in_progress",
-  "id": "5c9081d6-5a54-4d1a-86d3-d6b752380400"
+  "id": "eb7d09a6-e999-4464-984c-a0128e95cda7"
  },
  {
-  "title": "Learn JS",
-  "description": "Create Todo App, using http node server. Data should be stored in json file. Need to implement client by design",
-  "status": "in_progress",
-  "id": "c4b5c8c2-4cbe-4bb4-b763-2ee6225a2659"
- },
- {
-  "title": "Learn JS - UPDATED",
+  "title": "2 - Learn JS - UPDATED",
   "description": "Create Todo App, using http node server. Data should be stored in json file. Need to implement client by design",
   "status": "in_progress",
   "id": "88434074-d2f6-4a88-ad12-c6079a92e314"
  },
  {
-  "title": "Learn JS",
+  "title": "1 - Learn JS",
   "description": "Create Todo App, using http node server. Data should be stored in json file. Need to implement client by design",
-  "status": "in_progress",
-  "id": "cf3e2094-f4a2-4cd3-a45c-abc9a21b6703"
- },
- {
-  "title": "Play with Bodya",
-  "description": "spend time with son",
   "status": "todo",
-  "id": "eb7d09a6-e999-4464-984c-a0128e95cda7"
- },
- {
-  "title": "sllep",
-  "description": "sleep 8 hours",
-  "status": "todo",
-  "id": "a4faf47f-7409-4bb4-ab8b-4e10bf81e142"
+  "id": "c4b5c8c2-4cbe-4bb4-b763-2ee6225a2659"
  }
 ]

@@ -3,6 +3,7 @@ const url = require("url");
 const crypto = require("crypto");
 const path = require('path');
 const { getContentType } = require('./utils');
+const { updateTodos } = require("./helper");
 
 const DATA_FILE = "data.json";
 const CLIENT_DIRECTORY = '../client';
@@ -81,13 +82,13 @@ async function update(req, res) {
     try {
       const data = await fs.promises.readFile(DATA_FILE);
       const todos = JSON.parse(data);
-      const patch = JSON.parse(req.body);
-      const index = todos.findIndex((item) => item.id === patch.id);
-      todos[index] = { ...todos[index], ...patch };
-      fs.promises.writeFile(DATA_FILE, JSON.stringify(todos, null, " "));
+      const { _next, ...patch } = JSON.parse(req.body);
+      const updated = updateTodos(todos, patch, _next);
+      fs.promises.writeFile(DATA_FILE, JSON.stringify(updated, null, " "));
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(todos[index]));
+      res.end(patch.id);
     } catch (err) {
+      console.log('>', err)
       res.writeHead(400, { "Content-Type": "text-plain;charset=UTF-8" });
       res.end(err.message);
     }

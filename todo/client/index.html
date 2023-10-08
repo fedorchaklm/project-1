@@ -11,25 +11,27 @@
 <body>
   <div class="container">
     <button id="add-task">+</button>
-    <div id='todo' class="block">
+    <div class="block">
       <h2>TODO</h2>
-      <div class="cards"></div>
+      <div class="cards" id='todo'></div>
     </div>
-    <div id='in-progress' class="block">
+    <div class="block">
       <h2>IN PROGRESS</h2>
-      <div class="cards"></div>
+      <div class="cards" id='in_progress'></div>
     </div>
-    <div id='done' class="block">
+    <div class="block">
       <h2>DONE</h2>
-      <div class="cards"></div>
+      <div class="cards" id='done'></div>
     </div>
   </div>
 
   <div id="modal-container"></div>
 
-  <script src="data-servise.js"></script>
-  <script src="modal.js"></script>
-  <script src="main.js"></script>
+  <script src="src/constanst.js"></script>
+  <script src="src/helper.js"></script>
+  <script src="src/data-servise.js"></script>
+  <script src="src/modal.js"></script>
+  <script src="src/main.js"></script>
 </body>
 
 </html>
