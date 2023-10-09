@@ -26,12 +26,15 @@ function renderCards(data, status) {
     </div>`;
   }
   parent.innerHTML = html;
-  parent
-    .querySelectorAll(".btn-delete")
-    .forEach((btn) => btn.addEventListener("click", (evt) => handleDeleteTask(evt)));
-  parent
-    .querySelectorAll(".btn-edit")
-    .forEach((btn) => btn.addEventListener("click", (evt) => handleEditTask(evt)));
+  parent.querySelectorAll(".btn-delete").forEach((btn) => {
+    btn.onclick = () => handleDeleteTask(btn.dataset.id);
+  });
+
+  parent.querySelectorAll(".btn-edit").forEach((btn) => {
+    const id = btn.dataset.id;
+    const editTask = data.find((item) => item.id === id);
+    btn.onclick = () => handleEditTask(editTask);
+  });
 }
 
 function render() {
@@ -105,22 +108,40 @@ function addAddEvent() {
   buttonAdd.addEventListener("click", () => handleAddTask());
 }
 
-function handleDeleteTask(evt) {
-  const id = evt.currentTarget.dataset.id;
+function handleDeleteTask(id) {
   DataService.deleteData(id).then(() => {
     render();
   });
-  console.log("here");
 }
 
-function handleEditTask(evt) {
-  const id = evt.currentTarget.dataset.id;
-
-  console.log("here");
+function handleEditTask(editTask) {
+  const formId = 'edit-task-form';
+  const modal = renderTaskFormModal(formId, 'Edit', editTask.title, editTask.description);
+  const form = document.getElementById(formId);
+  form.onsubmit = (evt) => {
+    evt.preventDefault();
+    const task = {
+      id: editTask.id,
+      title: evt.target.querySelector('input[name="title"]').value,
+      description: evt.target.querySelector('textarea[name="description"]')
+        .value,
+    };
+    DataService.updateData(task)
+      .then((data) => {
+        console.log(data);
+        form.reset();
+      })
+      .finally(() => {
+        modal.close();
+        render();
+      });
+  };
 }
+
 function handleAddTask() {
-  const modal = renderAddTaskFormModal();
-  const form = document.getElementById("add-task-form");
+  const formId = 'add-task-form';
+  const modal = renderTaskFormModal(formId, 'Create');
+  const form = document.getElementById(formId);
   form.onsubmit = (evt) => {
     evt.preventDefault();
     const task = {
@@ -141,23 +162,22 @@ function handleAddTask() {
   };
 }
 
-function renderAddTaskFormModal() {
+function renderTaskFormModal(formId, buttonText, title = '', description = '') {
   const modal = new Modal();
   modal.show();
   const modalContent = document.getElementById("modal-content");
   modalContent.innerHTML = `<div class="form-container">
-    <form id="add-task-form"> 
+    <form id="${formId}"> 
       <div class="form-field">
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title"/>
+        <input type="text" id="title" name="title" value="${title}"/>
       </div>
       <div class="form-field">
         <label for="description">Description</label>
-        <textarea id="description" rows="5" name="description"></textarea>
+        <textarea id="description" rows="5" name="description">${description}</textarea>
       </div>
       <div class="form-buttons">
-        <button type="submit">Create</button>
-        <button type="button">Cancel</button>
+        <button type="submit">${buttonText}</button>
       </div>
     </form>
     </div>`;
