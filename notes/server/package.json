@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "On User signup we save user password and login. We shouldn't store password itself, we must encrypt it before saving.\r And for the User authentification we will create a token which we will store in the database. We will set cookie in response header, so that get this cookie in each request then.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
