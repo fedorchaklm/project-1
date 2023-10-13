@@ -32,3 +32,9 @@ On request we check isAuthorized, if not we return error status code 401.
 ## Client Side
 
 We try to get something from server. On Error 401 we will redirect to sigin.html.
+
+
+## Sessions
+
+key is user id
+value is token

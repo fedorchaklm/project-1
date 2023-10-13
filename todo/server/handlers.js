@@ -83,6 +83,7 @@ async function update(req, res) {
       const data = await fs.promises.readFile(DATA_FILE);
       const todos = JSON.parse(data);
       const { _next, ...patch } = JSON.parse(req.body);
+      console.log('>', { patch})
       const updated = updateTodos(todos, patch, _next);
       fs.promises.writeFile(DATA_FILE, JSON.stringify(updated, null, " "));
       res.writeHead(200, { "Content-Type": "application/json" });

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Sign Up</h1>
+    </div>
+    <form id="signup-form" class="section">
+      <div class="field-block">
+        <label for="username">Username:</label>
+        <input id="username" placeholder="Username" name="username" autocomplete="off" required />
+      </div>
+      <div class="field-block">
+        <label for="password">Password:</label>
+        <input id="password" placeholder="Password" name="password" autocomplete="off" required type="password"/>
+      </div>
+    </form>
+    <span class="hidden" id="error">Invalid password or username</span>
+    <div class="section">
+      <button type="submit" form="signup-form">Sign Up</button>
+    </div>
+    <div class="section">
+      <a href="/signin.html">Sign into account</a>
+    </div>
+  </div>
+
+  <script src="./src/signup.js"></script>
+  </script>
+</body>
+
+</html>

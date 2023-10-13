@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Sign In</h1>
+    </div>
+    <form id="signin-form" class="section">
+      <div class="field-block">
+        <label for="username">Username:</label>
+        <input id="username" placeholder="Username" name="username" autocomplete="off" required />
+      </div>
+      <div class="field-block">
+        <label for="password">Password:</label>
+        <input id="password" placeholder="Password" name="password" autocomplete="off" required type="password"/>
+      </div>
+    </form>
+    <span class="hidden" id="error">Invalid password or username</span>
+    <div class="section">
+      <button type="submit" form="signin-form">Sign In</button>
+    </div>
+    <div class="section">
+      <a href="/signup.html">Create an account</a>
+    </div>
+  </div>
+
+  <script src="./src/signin.js"></script>
+  </script>
+</body>
+
+</html>
