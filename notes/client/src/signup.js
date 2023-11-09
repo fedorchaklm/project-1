@@ -6,7 +6,7 @@ form.onsubmit = async (evt) => {
     password: evt.target.querySelector('input[name="password"]').value,
   };
   try {
-    const res = await fetch("http://localhost:3005/api/auth/signup", {
+    const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-type": "aplication/json" },
       body: JSON.stringify(data),

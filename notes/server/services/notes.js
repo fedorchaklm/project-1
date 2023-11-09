@@ -10,6 +10,7 @@ async function create(userId, note) {
   const data = await fs.promises.readFile(filePath);
   const notes = JSON.parse(data);
   note.id = crypto.randomUUID();
+  note.favorite = false;
   notes.push(note);
   await fs.promises.writeFile(filePath, JSON.stringify(notes));
   return note;
@@ -17,6 +18,9 @@ async function create(userId, note) {
 
 async function read(userId) {
   const filePath = path.resolve(__dirname, `../data/notes/${userId}.json`);
+  if (!fs.existsSync(filePath)) {
+    await fs.promises.appendFile(filePath, "[]");
+  }
   const data = await fs.promises.readFile(filePath);
   return JSON.parse(data);
 }
@@ -52,10 +56,19 @@ async function update(userId, note) {
   return notes[index];
 }
 
+async function setFavorite(userId, id, favorite) {
+  const filePath = path.resolve(__dirname, `../data/notes/${userId}.json`);
+  const notes = JSON.parse(await fs.promises.readFile(filePath));
+  const index = notes.findIndex((item) => item.id === id);
+  notes[index].favorite = favorite;
+  await fs.promises.writeFile(filePath, JSON.stringify(notes));
+}
+
 module.exports = {
   create,
   read,
   remove,
   removeAll,
   update,
+  setFavorite,
 };

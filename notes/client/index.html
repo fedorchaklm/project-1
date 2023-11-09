@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
 
+<body>
+  <div class="container">
+    <div class="block active">
+      <div class="header">
+        <h2>Notes:</h2>
+        <button class="create" title="New"></button>
+      </div>
+
+      <div class="notes">
+
+      </div>
+    </div>
+    <div class="block-left">
+      <input type="text" class="note-title" placeholder="Note Title" required />
+      <textarea class="note-content" placeholder="Your note content" required></textarea>
+      <div class="action-buttons">
+        <button class="btn save" disabled="true">Save</button>
+        <button class="btn cancel" disabled="true">Cancel</button>
+      </div>
+
+    </div>
+    <div class="modal-container">
+
+    </div>
+  </div>
+  <script src="/src/index.js"></script>
+  <script src="/src/dataService.js"></script>
+  <script src="/src/modal.js"></script>
 </body>
+
 </html>

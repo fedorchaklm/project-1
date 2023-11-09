@@ -1,4 +1,5 @@
 const http = require("http");
+const sessions = require("./services/sessions.js");
 const users = require("./handlers/users.js");
 const auth = require("./handlers/auth.js");
 const static = require("./handlers/static.js");
@@ -27,17 +28,31 @@ function serve(port) {
           auth.signIn(req, res);
         }
       } else if (endpoint.startsWith("/api/notes")) {
-        if (req.method === "POST") {
-          notes.create(req, res);
-        }
-        if (req.method === "GET") {
-          notes.read(req, res);
-        }
-        if (req.method === "DELETE") {
-          notes.remove(req, res);
-        }
-        if (req.method === "PATCH") {
-          notes.update(req, res);
+        if (await sessions.getUserIdFromRequest(req)) {
+          if (endpoint === "/api/notes") {
+            if (req.method === "POST") {
+              notes.create(req, res);
+            }
+            if (req.method === "GET") {
+              notes.read(req, res);
+            }
+            if (req.method === "DELETE") {
+              notes.remove(req, res);
+            }
+            if (req.method === "PATCH") {
+              notes.update(req, res);
+            }
+          } else {
+            if (
+              req.method === "PATCH" &&
+              endpoint.startsWith("/api/notes/favorite")
+            ) {
+              notes.updateFavorite(req, res);
+            }
+          }
+        } else {
+          res.writeHead(401, { "Content-Type": "text-plain;charset=UTF-8" });
+          res.end("Unauthorized user");
         }
       } else {
         res.writeHead(400, { "Content-Type": "text-plain;charset=UTF-8" });
@@ -49,4 +64,4 @@ function serve(port) {
   });
 }
 
-serve(3005);
+serve(3000);

@@ -65,9 +65,29 @@ async function update(req, res) {
   });
 }
 
+async function updateFavorite(req, res) {
+  req.body = "";
+  req.on("data", (chunk) => {
+    req.body += chunk;
+  });
+  req.on("end", async () => {
+    try {
+      const userId = await sessions.getUserIdFromRequest(req);
+      const { id, favorite } = JSON.parse(req.body);
+      const updated = await notesService.setFavorite(userId, id, favorite);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(updated));
+    } catch (err) {
+      res.writeHead(400, { "Content-Type": "text-plain;charset=UTF-8" });
+      res.end(err.message);
+    }
+  });
+}
+
 module.exports = {
   create,
   read,
   remove,
   update,
+  updateFavorite,
 };

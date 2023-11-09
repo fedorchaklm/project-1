@@ -12,7 +12,9 @@ function getContentType(extention) {
     case ".png":
       return "image/png";
     case ".txt":
-      return "text/plain";     
+      return "text/plain";    
+    case ".svg":
+      return "image/svg+xml";
     default:
       return "application/octet-stream";
   }
